@@ -1,0 +1,14 @@
+C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Debug\netstandard2.0\TodoList.deps.json
+C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Debug\netstandard2.0\TodoList.dll
+C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Debug\netstandard2.0\ref\TodoList.dll
+C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Debug\netstandard2.0\TodoList.pdb
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.csprojAssemblyReference.cache
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\App.xaml.g.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\Views\CreateOrEditPage.xaml.g.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.AssemblyInfoInputs.cache
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.AssemblyInfo.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\XamlC.stamp
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.dll
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\ref\TodoList.dll
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.pdb

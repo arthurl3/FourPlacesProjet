@@ -23,8 +23,14 @@ namespace TD.Api.Dtos
 		
 		[JsonProperty("longitude")]
 		public double Longitude { get; set; }
-		
-		[JsonProperty("comments")]
-		public List<CommentItem> Comments { get; set; }
+
+		public PlaceItem(string title, string description, int imageId, double latitude, double longitude)
+		{
+			Title = title;
+			Description = description;
+			ImageId = imageId;
+			Latitude = latitude;
+			Longitude = longitude;
+		}
 	}
 }

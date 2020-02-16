@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TD.Api.Dtos;
+using TodoList.Services;
 using Xamarin.Forms;
 
 namespace TodoList.ViewModels
@@ -28,17 +29,34 @@ namespace TodoList.ViewModels
         [NavigationParameter("PlaceItem")]
         public PlaceItem PlaceItem { get; set; }
 
+        private List<CommentItem> _listComments;
+        public List<CommentItem> ListComments
+        {
+            get => _listComments;
+            set => SetProperty(ref _listComments, value);
+        }
+
+        private string _urlimage;
+        public string UrlImage
+        {
+            get => _urlimage;
+            set => SetProperty(ref _urlimage, value);
+        }
 
         public PlaceDetailsPageViewModel()
         {
 
         }
 
-        public override void Initialize(Dictionary<string, object> navigationParameters)
+        public override async void Initialize(Dictionary<string, object> navigationParameters)
         {
             base.Initialize(navigationParameters);
             PageName = PlaceItem.Title;
             Description = PlaceItem.Description;
+
+            ApiClient api = new ApiClient();
+            UrlImage = "https://td-api.julienmialon.com/images/" + PlaceItem.ImageId;
+            ListComments = await api.GetCommentsPlace(PlaceItem.Id);
 
         }
     }

@@ -7,7 +7,6 @@ using System.Windows.Input;
 using Storm.Mvvm;
 using Storm.Mvvm.Services;
 using TD.Api.Dtos;
-using TodoList.Models;
 using TodoList.Services;
 using TodoList.Views;
 using Xamarin.Forms;
@@ -16,7 +15,6 @@ namespace TodoList.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private readonly Lazy<ITodoService> _todoService;
         private readonly Lazy<INavigationService> _navigationService;
         private readonly Lazy<IDialogService> _dialogService;
 
@@ -33,7 +31,6 @@ namespace TodoList.ViewModels
 
         public MainPageViewModel()
         {
-            _todoService = new Lazy<ITodoService>(() => DependencyService.Resolve<ITodoService>());
             _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
             _dialogService = new Lazy<IDialogService>(() => DependencyService.Resolve<IDialogService>());
 

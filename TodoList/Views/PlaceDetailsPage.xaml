@@ -17,29 +17,34 @@
             <Label
                 Text="{Binding Description}" />
 
+            <Image
+                Source="{Binding UrlImage}"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"/>
+
             <ListView
-            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-            ItemsSource="{Binding ListComments}"
-            HasUnevenRows="True"
-            SeparatorColor="Black"
-            Footer="">
+                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                ItemsSource="{Binding ListComments}"
+                HasUnevenRows="True"
+                SeparatorColor="Black"
+                Footer=""
+                SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate
-                    x:DataType="local:CommentItem">
+                        x:DataType="local:CommentItem">
                         <ViewCell>
                             <StackLayout
                             Margin="6,3"
                             Orientation="Vertical">
                                 <Label
-                                    Text="{Binding Nom}"
+                                    Text="{Binding Author}"
                                     TextColor="Black"
                                     FontSize="16" />
-                                <StackLayout
-                                    Orientation="Horizontal">
-                                    <Label
-                                        Text="{Binding Description}" />
-                                </StackLayout>
+                                <Label
+                                    Text="{Binding Date}" />
+                                <Label
+                                    Text="{Binding Text}" />
                             </StackLayout>
                         </ViewCell>
                     </DataTemplate>

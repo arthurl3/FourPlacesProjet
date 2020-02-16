@@ -18,5 +18,8 @@ namespace TD.Api.Dtos
         
         [JsonProperty("image_id")]
         public int? ImageId { get; set; }
+
+        public override string ToString()
+        { return FirstName + " " + LastName; }
     }
 }

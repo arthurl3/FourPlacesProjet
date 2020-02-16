@@ -16,7 +16,6 @@ namespace TodoList.ViewModels
     class HomePageViewModel : ViewModelBase
     {
         private readonly Lazy<INavigationService> _navigationService;
-        private TodoService todoService;
 
         private List<PlaceItem> _listPlaces;
         public List<PlaceItem> ListPlaces
@@ -47,13 +46,14 @@ namespace TodoList.ViewModels
         }
 
         public ICommand SeeDetailsCommand { get; }
+        public ICommand GotoCreatePlaceCommand { get; }
 
         public HomePageViewModel()
         {
             _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
-            todoService = new TodoService();
 
             SeeDetailsCommand = new Command<PlaceItem>(SeeDetailsAction);
+            GotoCreatePlaceCommand = new Command(GotoCreatePlaceAction);
         }
 
 
@@ -63,7 +63,7 @@ namespace TodoList.ViewModels
             ApiClient api = new ApiClient();
 
             PageName = "Home";
-            ListPlaces = await api.getPlaces();
+            ListPlaces = await api.GetPlaces();
         }
 
         public async void SeeDetailsAction(PlaceItem placeItem)
@@ -74,6 +74,9 @@ namespace TodoList.ViewModels
             });
         }
 
-
+        public async void GotoCreatePlaceAction()
+        {
+            await _navigationService.Value.PushAsync<AddPlacePage>();
+        }
     }
 }

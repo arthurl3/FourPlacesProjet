@@ -10,7 +10,7 @@ namespace TodoList
         public App() : base(() => new MainPage())
         {
             InitializeComponent();
-            DependencyService.Register<ITodoService, TodoService>();
+            //DependencyService.Register<ITodoService, TodoService>();
         }
 
         protected override void OnStart() { }

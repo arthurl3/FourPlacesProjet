@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -23,13 +24,13 @@ namespace TodoList.Services
 		public const string UPDATE_PASSWORD = "me/password"; // PATCH Update password
 
 		public const string LIST_PLACES = "places"; // GET List of places
-		public const string GET_PLACE = "places/{placeId}"; // GET place detail
+		public const string GET_PLACE = "places/"; // GET place detail
 
 		public const string CREATE_PLACE = "places"; //POST Create a place
 		public const string CREATE_COMMENT = "places/{placeId}/comments"; //POST Add a comment
 
 		public const string CREATE_IMAGE = "images"; //POST upload an image
-		public const string GET_IMAGE = "images/{imageId}"; //GET retrieve image data
+		public const string GET_IMAGE = "images/"; //GET retrieve image data
 		
 		public const string IMAGE_NOT_FOUND = nameof(IMAGE_NOT_FOUND);
 
@@ -43,7 +44,7 @@ namespace TodoList.Services
 
         }
 
-        public async void postLogin()
+        public async void PostLogin()
         {
             //var uri = new Uri(URL + LOGIN);
 
@@ -58,23 +59,49 @@ namespace TodoList.Services
             //}
         }
 
-        public async Task<List<PlaceItem>> getPlaces()
+        public async Task<List<PlaceItem>> GetPlaces()
         {
-            var uri = new Uri(URL + LIST_PLACES);
-
-            Debug.WriteLine("DUH : "+URL + LIST_PLACES);
-            
-            var response = await httpClient.GetAsync(uri);
-            
-
+            Uri uri = new Uri(URL + LIST_PLACES);            
+            HttpResponseMessage response = await httpClient.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
-                String content = await response.Content.ReadAsStringAsync();
+                string content = await response.Content.ReadAsStringAsync();
                 JObject jSonObject = JObject.Parse(content);
                 List<PlaceItem> res = JsonConvert.DeserializeObject<List<PlaceItem>>(jSonObject.GetValue("data").ToString());
                 return res;
             }
             return null;
+        }
+
+        public async Task<List<CommentItem>> GetCommentsPlace(int idPlace)
+        {
+            Uri uri = new Uri(URL + GET_PLACE + idPlace);
+            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                JObject jSonObject = JObject.Parse(content);
+                List<CommentItem> res = JsonConvert.DeserializeObject<List<CommentItem>>(((JObject)(jSonObject.GetValue("data"))).GetValue("comments").ToString());
+                
+                return res;
+            }
+            return null;
+        }
+
+        public async Task<bool> CreatePlace(PlaceItem place)
+        {
+            //TODO add OAuth 2.0 Token 
+
+            Uri uri = new Uri(URL+ CREATE_PLACE);
+            string json = JsonConvert.SerializeObject(place);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response;
+            response = await httpClient.PostAsync(uri, content);
+
+            Console.WriteLine(response);
+
+            return (response.IsSuccessStatusCode);
         }
     }
 }

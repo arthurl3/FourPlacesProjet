@@ -26,20 +26,15 @@
                         <StackLayout
                             Margin="6,3"
                             Orientation="Vertical">
+                            
                             <Label
                                 Text="{Binding Title}"
                                 TextColor="Black"
                                 FontSize="16" />
-                            <StackLayout
-                                Orientation="Horizontal">
-                                <Image Source="{Binding ImageId}"
-                                    HorizontalOptions="Center"
-                                    VerticalOptions="CenterAndExpand"/>
-                                <!--<BoxView
-                                    HorizontalOptions="FillAndExpand" />-->
-                                <Label
-                                    Text="{Binding Description}" />
-                            </StackLayout>
+                            
+                            <Label
+                                Text="{Binding Description}" />
+                            
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
@@ -47,7 +42,7 @@
         </ListView>
         <ImageButton
             Source="plus.png"
-            Command="{Binding CreateTodoCommand}"
+            Command="{Binding GotoCreatePlaceCommand}"
             RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1, Constant=-60}"
             RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1, Constant=-60}"
             HeightRequest="40"

@@ -5,7 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:TodoList.Models"
+    xmlns:local="clr-namespace:TD.Api.Dtos"
     mc:Ignorable="d"
     x:Class="TodoList.Views.HomePage"
     Title="{Binding PageName, Mode=OneTime}">
@@ -14,32 +14,25 @@
         <ListView
             RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
             RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-            ItemsSource="{Binding TodoList}"
-            SelectedItem="{Binding SelectedTodo, Mode=TwoWay}"
+            ItemsSource="{Binding ListPlaces}"
+            SelectedItem="{Binding SelectedPlaceItem, Mode=TwoWay}"
             HasUnevenRows="True"
             SeparatorColor="Black"
             Footer="">
             <ListView.ItemTemplate>
                 <DataTemplate
-                    x:DataType="local:Todo">
+                    x:DataType="local:PlaceItem">
                     <ViewCell>
-                        <ViewCell.ContextActions>
-                            <MenuItem
-                                Command="{Binding SeeDetailsCommand}"
-                                CommandParameter="{Binding .}"
-                                Text="Supprimer"
-                                IsDestructive="True" />
-                        </ViewCell.ContextActions>
                         <StackLayout
                             Margin="6,3"
                             Orientation="Vertical">
                             <Label
-                                    Text="{Binding Title}"
-                                    TextColor="Black"
-                                    FontSize="16" />
+                                Text="{Binding Title}"
+                                TextColor="Black"
+                                FontSize="16" />
                             <StackLayout
                                 Orientation="Horizontal">
-                                <Image Source="{Binding Image}"
+                                <Image Source="{Binding ImageId}"
                                     HorizontalOptions="Center"
                                     VerticalOptions="CenterAndExpand"/>
                                 <!--<BoxView

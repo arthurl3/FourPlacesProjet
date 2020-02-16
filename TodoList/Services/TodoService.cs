@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Plugin.Settings;
+using TD.Api.Dtos;
 using TodoList.Models;
 
 namespace TodoList.Services
@@ -12,6 +13,7 @@ namespace TodoList.Services
         Task DeleteTodo(Todo todo);
         Task CreateTodo(Todo todo);
         Task EditTodo(Todo todo);
+        Task<List<PlaceItem>> getPlaces();
     }
 
     public class TodoService : ITodoService
@@ -20,7 +22,17 @@ namespace TodoList.Services
 
         private List<Todo> _todoList;
 
-        public TodoService() { }
+        private ApiClient apiClient;
+
+        public TodoService() 
+        {
+            apiClient = new ApiClient();
+        }
+
+        public Task<List<PlaceItem>> getPlaces()
+        {
+            return apiClient.getPlaces();
+        }
 
         public Task CreateTodo(Todo todo)
         {

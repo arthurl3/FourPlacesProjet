@@ -1,1 +1,7 @@
 .vs/*
+TodoList/bin/*
+TodoList/obj/*
+TodoList.Android/bin/*
+TodoList.Android/obj/*
+TodoList.iOS/bin/*
+TodoList.iOS/obj/*

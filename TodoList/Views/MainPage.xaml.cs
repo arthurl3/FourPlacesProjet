@@ -1,5 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
 using Storm.Mvvm.Forms;
+using TD.Api.Dtos;
+using TodoList.Services;
 using TodoList.ViewModels;
 
 namespace TodoList.Views
@@ -13,5 +17,7 @@ namespace TodoList.Views
             BindingContext = new MainPageViewModel();
             InitializeComponent();
         }
+
+
     }
 }

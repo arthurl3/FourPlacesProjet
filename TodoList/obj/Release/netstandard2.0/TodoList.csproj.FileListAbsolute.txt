@@ -4,7 +4,6 @@ C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Release\netstandard2.0\ref\T
 C:\Users\Pointel\source\repos\TodoList\TodoList\bin\Release\netstandard2.0\TodoList.pdb
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\TodoList.csprojAssemblyReference.cache
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\App.xaml.g.cs
-C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\Views\CreateOrEditPage.xaml.g.cs
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\Views\MainPage.xaml.g.cs
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\TodoList.AssemblyInfoInputs.cache
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\TodoList.AssemblyInfo.cs
@@ -13,3 +12,4 @@ C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\TodoL
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\ref\TodoList.dll
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\TodoList.pdb
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\Views\HomePage.xaml.g.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Release\netstandard2.0\Views\PlaceDetailsPage.xaml.g.cs

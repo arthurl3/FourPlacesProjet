@@ -1,14 +1,55 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<!--//**TODO-->
-<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="TodoList.Views.PlaceDetailsPage">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
-</ContentView>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:TD.Api.Dtos"
+    mc:Ignorable="d"
+    x:Class="TodoList.Views.PlaceDetailsPage"
+    Title="{Binding PageName, Mode=OneTime}">
+    <ScrollView
+        Orientation="Vertical">
+        <StackLayout
+            Orientation="Vertical"
+            Margin="12,20">
+            <Label
+                Text="{Binding Description}" />
+
+            <ListView
+            RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+            RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+            ItemsSource="{Binding ListComments}"
+            HasUnevenRows="True"
+            SeparatorColor="Black"
+            Footer="">
+                <ListView.ItemTemplate>
+                    <DataTemplate
+                    x:DataType="local:CommentItem">
+                        <ViewCell>
+                            <StackLayout
+                            Margin="6,3"
+                            Orientation="Vertical">
+                                <Label
+                                    Text="{Binding Nom}"
+                                    TextColor="Black"
+                                    FontSize="16" />
+                                <StackLayout
+                                    Orientation="Horizontal">
+                                    <Label
+                                        Text="{Binding Description}" />
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+
+        </StackLayout>
+    </ScrollView>
+
+   
+
+</forms:BaseContentPage>

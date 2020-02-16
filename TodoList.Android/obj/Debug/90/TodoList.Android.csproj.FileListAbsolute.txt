@@ -482,3 +482,4 @@ C:\Users\Pointel\source\repos\TodoList\TodoList.Android\obj\Debug\90\stamp\_Conv
 C:\Users\Pointel\source\repos\TodoList\TodoList.Android\obj\Debug\90\stamp\_GenerateJavaStubs.stamp
 C:\Users\Pointel\source\repos\TodoList\TodoList.Android\obj\Debug\90\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\Pointel\source\repos\TodoList\TodoList.Android\obj\Debug\90\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\Pointel\source\repos\TodoList\TodoList.Android\obj\Debug\90\stamp\SetupDependenciesForDesigner.stamp

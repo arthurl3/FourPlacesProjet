@@ -13,3 +13,4 @@ C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\ref\Tod
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\TodoList.pdb
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\Views\HomePage.xaml.g.cs
 C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\Views\PlaceDetailsPage.xaml.g.cs
+C:\Users\Pointel\source\repos\TodoList\TodoList\obj\Debug\netstandard2.0\Views\AddPlacePage.xaml.g.cs

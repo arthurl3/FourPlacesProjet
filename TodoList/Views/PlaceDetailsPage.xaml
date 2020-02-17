@@ -9,52 +9,65 @@
     mc:Ignorable="d"
     x:Class="TodoList.Views.PlaceDetailsPage"
     Title="{Binding PageName, Mode=OneTime}">
-    <ScrollView
+    
+    <StackLayout
         Orientation="Vertical">
-        <StackLayout
+
+        <ScrollView
+        Orientation="Vertical">
+
+            <StackLayout
             Orientation="Vertical"
             Margin="12,20">
-            <Label
+                <Label
                 Text="{Binding Description}" />
 
-            <Image
-                Source="{Binding UrlImage}"
-                HorizontalOptions="Center"
-                VerticalOptions="CenterAndExpand"/>
+                <Image
+                    Source="{Binding UrlImage}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="CenterAndExpand"/>
 
-            <ListView
-                RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
-                RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
-                ItemsSource="{Binding ListComments}"
-                HasUnevenRows="True"
-                SeparatorColor="Black"
-                Footer=""
-                SelectionMode="None">
-                <ListView.ItemTemplate>
-                    <DataTemplate
-                        x:DataType="local:CommentItem">
-                        <ViewCell>
-                            <StackLayout
-                            Margin="6,3"
-                            Orientation="Vertical">
-                                <Label
-                                    Text="{Binding Author}"
-                                    TextColor="Black"
-                                    FontSize="16" />
-                                <Label
-                                    Text="{Binding Date}" />
-                                <Label
-                                    Text="{Binding Text}" />
-                            </StackLayout>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                <ListView
+                    RelativeLayout.HeightConstraint="{ConstraintExpression Type=RelativeToParent, Property=Height, Factor=1}"
+                    RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent, Property=Width, Factor=1}"
+                    ItemsSource="{Binding ListComments}"
+                    HasUnevenRows="True"
+                    SeparatorColor="Black"
+                    Footer=""
+                    SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate
+                            x:DataType="local:CommentItem">
+                            <ViewCell>
+                                <StackLayout
+                                Margin="6,3"
+                                Orientation="Vertical">
+                                    <Label
+                                        Text="{Binding Author}"
+                                        TextColor="Black"
+                                        FontSize="16" />
+                                    <Label
+                                        Text="{Binding Date}" />
+                                    <Label
+                                        Text="{Binding Text}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
 
+        </ScrollView>
 
-        </StackLayout>
-    </ScrollView>
+        <Button
+            Command="{Binding OpenCommentCommand}"
+            Text="Comment" />
+    </StackLayout>
+        
+        
+    
 
-   
+    
+
 
 </forms:BaseContentPage>

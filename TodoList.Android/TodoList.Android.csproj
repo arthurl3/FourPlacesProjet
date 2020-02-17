@@ -106,7 +106,11 @@
       </Generator>
     </AndroidResource>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <AndroidResource Include="Resources\xml\file_paths.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TodoList\TodoList.csproj">
       <Project>{00BBBFD7-54EE-4531-AC06-F880E553F82B}</Project>

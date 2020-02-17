@@ -3,7 +3,7 @@
     xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    x:Class="TodoList.Views.MainPage"
+    x:Class="TodoList.Views.InscriptionPage"
     Title="{Binding PageName, Mode=OneTime}">
     <ScrollView
         Orientation="Vertical">
@@ -17,17 +17,24 @@
                 Text="{Binding Email}" />
 
             <Label
-                Text="Passsword" />
+                Text="Firstname" />
+            <Entry
+                Text="{Binding Firstname}" />
+
+            <Label
+                Text="Lastname" />
+            <Entry
+                Text="{Binding Lastname}" />
+
+            <Label
+                Text="Password" />
             <Entry
                 Text="{Binding Password}" />
 
             <Button
-                Command="{Binding ConnectionCommand}"
-                Text="Sign in" />
+                Command="{Binding OpenCameraCommand}"
+                Text="Register" />
 
-            <Button
-                Command="{Binding GotoRegisterCommand}"
-                Text="Sign up" />
         </StackLayout>
     </ScrollView>
 

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Input;
 using TD.Api.Dtos;
 using TodoList.Services;
 using Xamarin.Forms;
@@ -43,9 +44,11 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _urlimage, value);
         }
 
+        public ICommand OpenCommentCommand { get; }
+
         public PlaceDetailsPageViewModel()
         {
-
+            OpenCommentCommand = new Command(OpenCommentAction);
         }
 
         public override async void Initialize(Dictionary<string, object> navigationParameters)
@@ -59,5 +62,15 @@ namespace TodoList.ViewModels
             ListComments = await api.GetCommentsPlace(PlaceItem.Id);
 
         }
+
+        public async void OpenCommentAction()
+        {
+            string result = await Application.Current.MainPage.DisplayPromptAsync("Post a comment", "");
+
+            //TODO api add comment
+            //TODO refresh
+
+        }
+
     }
 }

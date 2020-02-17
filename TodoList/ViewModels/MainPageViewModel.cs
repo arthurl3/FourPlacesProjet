@@ -39,6 +39,7 @@ namespace TodoList.ViewModels
         }
 
         public ICommand ConnectionCommand { get; }
+        public ICommand GotoRegisterCommand { get; }
 
         public MainPageViewModel()
         {
@@ -46,6 +47,7 @@ namespace TodoList.ViewModels
             _dialogService = new Lazy<IDialogService>(() => DependencyService.Resolve<IDialogService>());
 
             ConnectionCommand = new Command(ConnectionAction);
+            GotoRegisterCommand = new Command(GotoRegisterAction);
 
             PageName = "Connection";
         }
@@ -62,11 +64,12 @@ namespace TodoList.ViewModels
             if (isAuthentificate)
                 await _navigationService.Value.PushAsync<HomePage>();
             else
-                await Application.Current.MainPage.DisplayAlert("Wrong Email or Password", "Please retry", "OK");
-            //await DisplayAlert("Wrong Email or Password", "Please retry", "OK");
-            
+                await Application.Current.MainPage.DisplayAlert("Wrong Email or Password", "Please retry", "OK");            
         }
 
-  
+        public async void GotoRegisterAction()
+        {
+            await _navigationService.Value.PushAsync<InscriptionPage>();
+        }
     }
 }

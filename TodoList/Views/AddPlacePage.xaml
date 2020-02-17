@@ -27,6 +27,13 @@
                 Text="{Binding Image}" />
 
             <Button
+                Command="{Binding OpenCameraCommand}"
+                Text="Open Camera" />
+
+            <Image
+                BindingContext="{Binding Photo}"/>
+
+            <Button
                 Command="{Binding GetLocationCommand}"
                 Text="Current Location" />
             <Label

@@ -1,4 +1,5 @@
-﻿using Storm.Mvvm;
+﻿using Plugin.Media;
+using Storm.Mvvm;
 using Storm.Mvvm.Services;
 using System;
 using System.Collections.Generic;
@@ -38,6 +39,13 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _description, value);
         }
 
+        private Image _photo;
+        public Image Photo
+        {
+            get => _photo;
+            set => SetProperty(ref _photo, value);
+        }
+
         private string _latitude;
         public string Latitude
         {
@@ -54,6 +62,7 @@ namespace TodoList.ViewModels
 
         public ICommand ValidateCommand { get; }
         public ICommand GetLocationCommand { get; }
+        public ICommand OpenCameraCommand { get; }
         
 
         public AddPlacePageViewModel()
@@ -63,14 +72,15 @@ namespace TodoList.ViewModels
             PageName = "Add Place";
             ValidateCommand = new Command(ValidateAction);
             GetLocationCommand = new Command(GetLocationAction);
+            OpenCameraCommand = new Command(OpenCameraAction);
         }
 
-        private async void OpenCameraAction(object sender, EventArgs e)
+        private async void OpenCameraAction()
         {
-            //var photo = await Plugin.Media.CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-            //if (photo != null)
-            //    PhotoImage.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+            if (photo != null)
+                Photo.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
 
 
             //if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
@@ -89,9 +99,9 @@ namespace TodoList.ViewModels
             //if (file == null)
             //    return;
 
-            //await DisplayAlert("File Location", file.Path, "OK");
+            //await Application.Current.MainPage.DisplayAlert("File Location", file.Path, "OK");
 
-            //image.Source = ImageSource.FromStream(() =>
+            //Photo.Source = ImageSource.FromStream(() =>
             //{
             //    var stream = file.GetStream();
             //    file.Dispose();

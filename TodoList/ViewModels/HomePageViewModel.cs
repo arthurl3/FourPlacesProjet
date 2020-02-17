@@ -60,9 +60,10 @@ namespace TodoList.ViewModels
         public override async void Initialize(Dictionary<string, object> navigationParameters)
         {
             base.Initialize(navigationParameters);
-            ApiClient api = new ApiClient();
+            ApiClient api = ApiClient.ApiInstance;
 
             PageName = "Home";
+            await api.GetUserSession();
             ListPlaces = await api.GetPlaces();
         }
 

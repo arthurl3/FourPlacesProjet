@@ -26,6 +26,9 @@
             <Entry
                 Text="{Binding Image}" />
 
+            <Button
+                Command="{Binding GetLocationCommand}"
+                Text="Current Location" />
             <Label
                 Text="Latitude" />
             <Entry
@@ -38,7 +41,7 @@
 
             <Button
                 Command="{Binding ValidateCommand}"
-                Text="Valider" />
+                Text="Confirm" />
         </StackLayout>
     </ScrollView>
 

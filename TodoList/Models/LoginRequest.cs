@@ -9,5 +9,12 @@ namespace TD.Api.Dtos
         
         [JsonProperty("password")]
         public string Password { get; set; }
+
+        public LoginRequest(string email, string password)
+        {
+            Email = email;
+            Password = password;
+
+        }
     }
 }

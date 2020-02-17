@@ -19,7 +19,7 @@
             <Label
                 Text="Passsword" />
             <Entry
-                Text="{Binding Passsword}" />
+                Text="{Binding Password}" />
 
             <Button
                 Command="{Binding ConnectionCommand}"

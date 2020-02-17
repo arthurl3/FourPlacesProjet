@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using TD.Api.Dtos;
@@ -13,7 +14,7 @@ using Xamarin.Forms;
 
 namespace TodoList.Services
 {
-    public class ApiClient
+    public sealed class ApiClient
     {
         public const string URL = "https://td-api.julienmialon.com/";
 		public const string LOGIN = "auth/login"; // POST login with email/password
@@ -36,33 +37,38 @@ namespace TodoList.Services
 
 		public const string EMAIL_ALREADY_EXISTS = nameof(EMAIL_ALREADY_EXISTS);
 
-	    HttpClient httpClient;
+        private string _accessToken;
+
+	    private HttpClient _httpClient;
+
+        private static readonly Lazy<ApiClient> apiClient = new Lazy<ApiClient>(() => new ApiClient());
+
 
         public ApiClient()
         {
-            httpClient = new HttpClient();
-
+            _httpClient = new HttpClient();
         }
 
-        public async void PostLogin()
+        public static ApiClient ApiInstance { get { return apiClient.Value; } }
+
+        public async Task<UserItem> GetUserSession()
         {
-            //var uri = new Uri(URL + LOGIN);
-
-            //LoginRequest loginRequest = new LoginRequest();
-
-            //var response = await httpClient.PostAsync(uri, );
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var content = await response.Content.ReadAsStringAsync();
-            //    LoginResult loginResult = JsonConvert.DeserializeObject<LoginResult>(content);
-            //    //return loginResult.TokenType;
-            //}
+            Uri uri = new Uri(URL + ME);
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
+            if (response.IsSuccessStatusCode)
+            {
+                string content = await response.Content.ReadAsStringAsync();
+                JObject jSonObject = JObject.Parse(content);
+                UserItem res = JsonConvert.DeserializeObject<UserItem>(jSonObject.GetValue("data").ToString());
+                return res;
+            }
+            return null;
         }
 
         public async Task<List<PlaceItem>> GetPlaces()
         {
             Uri uri = new Uri(URL + LIST_PLACES);            
-            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
@@ -76,13 +82,12 @@ namespace TodoList.Services
         public async Task<List<CommentItem>> GetCommentsPlace(int idPlace)
         {
             Uri uri = new Uri(URL + GET_PLACE + idPlace);
-            HttpResponseMessage response = await httpClient.GetAsync(uri);
+            HttpResponseMessage response = await _httpClient.GetAsync(uri);
             if (response.IsSuccessStatusCode)
             {
                 string content = await response.Content.ReadAsStringAsync();
                 JObject jSonObject = JObject.Parse(content);
                 List<CommentItem> res = JsonConvert.DeserializeObject<List<CommentItem>>(((JObject)(jSonObject.GetValue("data"))).GetValue("comments").ToString());
-                
                 return res;
             }
             return null;
@@ -90,16 +95,35 @@ namespace TodoList.Services
 
         public async Task<bool> CreatePlace(PlaceItem place)
         {
-            //TODO add OAuth 2.0 Token 
-
             Uri uri = new Uri(URL+ CREATE_PLACE);
             string json = JsonConvert.SerializeObject(place);
             StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response;
-            response = await httpClient.PostAsync(uri, content);
+            response = await _httpClient.PostAsync(uri, content);
 
-            Console.WriteLine(response);
+            return (response.IsSuccessStatusCode);
+        }
+
+
+        public async Task<bool> Authentification(string email, string password)
+        {
+            Uri uri = new Uri(URL + LOGIN);
+
+            LoginRequest loginRequest = new LoginRequest(email, password);
+            string json = JsonConvert.SerializeObject(loginRequest);
+            StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response;
+            response = await _httpClient.PostAsync(uri, content);
+            if (response.IsSuccessStatusCode)
+            {
+                string contentResponse = await response.Content.ReadAsStringAsync();
+                JObject jSonObject = JObject.Parse(contentResponse);
+                LoginResult res = JsonConvert.DeserializeObject<LoginResult>(((JObject)(jSonObject.GetValue("data"))).ToString());
+                _accessToken = res.AccessToken;
+                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessToken);
+            }
 
             return (response.IsSuccessStatusCode);
         }

@@ -25,7 +25,18 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _pageName, value);
         }
 
-       
+        private string _email;
+        public string Email
+        {
+            get => _email;
+            set => SetProperty(ref _email, value);
+        }
+        private string _password;
+        public string Password
+        {
+            get => _password;
+            set => SetProperty(ref _password, value);
+        }
 
         public ICommand ConnectionCommand { get; }
 
@@ -39,18 +50,23 @@ namespace TodoList.ViewModels
             PageName = "Connection";
         }
 
-        public async void OnClickConnection()
-        {
-           // TodoService todoService = new TodoService();
-            //List<PlaceItem> ListPlaces = await todoService.getPlaces();
-
-            //HomePage secondPage = new HomePage();
-            //secondPage.BindingContext = ListPlaces;
-            await _navigationService.Value.PushAsync<HomePage>();
-        }
         public async void ConnectionAction()
         {
-            await _navigationService.Value.PushAsync<HomePage>();
+            bool isAuthentificate = false;
+            if (Email != null && Password != null ) 
+            {
+                ApiClient api = ApiClient.ApiInstance;
+                isAuthentificate = await api.Authentification(Email, Password);
+            }
+
+            if (isAuthentificate)
+                await _navigationService.Value.PushAsync<HomePage>();
+            else
+                await Application.Current.MainPage.DisplayAlert("Wrong Email or Password", "Please retry", "OK");
+            //await DisplayAlert("Wrong Email or Password", "Please retry", "OK");
+            
         }
+
+  
     }
 }

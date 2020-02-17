@@ -54,7 +54,7 @@ namespace TodoList.ViewModels
             PageName = PlaceItem.Title;
             Description = PlaceItem.Description;
 
-            ApiClient api = new ApiClient();
+            ApiClient api = ApiClient.ApiInstance;
             UrlImage = "https://td-api.julienmialon.com/images/" + PlaceItem.ImageId;
             ListComments = await api.GetCommentsPlace(PlaceItem.Id);
 

@@ -1,14 +1,9 @@
-﻿using Plugin.Media;
-using Storm.Mvvm;
+﻿using Storm.Mvvm;
 using Storm.Mvvm.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using TD.Api.Dtos;
 using TodoList.Services;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace TodoList.ViewModels
@@ -16,7 +11,9 @@ namespace TodoList.ViewModels
     public class InscriptionPageViewModel : ViewModelBase
     {
         private readonly Lazy<INavigationService> _navigationService;
+#pragma warning disable CS0169 // Le champ 'InscriptionPageViewModel.api' n'est jamais utilisé
         private ApiClient api;
+#pragma warning restore CS0169 // Le champ 'InscriptionPageViewModel.api' n'est jamais utilisé
 
         private string _pageName;
         public string PageName
@@ -53,13 +50,20 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _password, value);
         }
 
+        private string _confirmpassword;
+        public string ConfirmPassword
+        {
+            get => _confirmpassword;
+            set => SetProperty(ref _confirmpassword, value);
+        }
+
         public ICommand RegisterCommand { get; }
 
 
         public InscriptionPageViewModel()
         {
             _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
-            api = ApiClient.ApiInstance;
+
             PageName = "Register";
             RegisterCommand = new Command(RegisterAction);
         }
@@ -67,8 +71,15 @@ namespace TodoList.ViewModels
 
         private async void RegisterAction()
         {
-            //await api. //TODO
-            await _navigationService.Value.PopAsync();
+            if (!ConfirmPassword.Equals(Password))
+                await Application.Current.MainPage.DisplayAlert("Error", "Passwords do not match", "OK");
+            else
+            {
+                RegisterRequest registerRequest = new RegisterRequest(Email, Firstname, Lastname, Password);
+                await ApiClient.ApiInstance.CreateRegisterRequest(registerRequest);
+                await _navigationService.Value.PopAsync();
+            }
+            
         }
     }
 }

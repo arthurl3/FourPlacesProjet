@@ -29,10 +29,17 @@
             <Label
                 Text="Password" />
             <Entry
+                IsPassword="true"
                 Text="{Binding Password}" />
 
+            <Label
+                Text="Confirm password" />
+            <Entry
+                IsPassword="true"
+                Text="{Binding ConfirmPassword}" />
+
             <Button
-                Command="{Binding OpenCameraCommand}"
+                Command="{Binding RegisterCommand}"
                 Text="Register" />
 
         </StackLayout>

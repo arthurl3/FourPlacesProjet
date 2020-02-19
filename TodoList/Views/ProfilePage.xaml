@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<forms:BaseContentPage
+    xmlns:forms="clr-namespace:Storm.Mvvm.Forms;assembly=Storm.Mvvm.Forms"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="TodoList.Views.ProfilePage"
+    Title="{Binding PageName, Mode=OneTime}">
+    <ScrollView
+        Orientation="Vertical">
+        <StackLayout
+            Orientation="Vertical"
+            Margin="12,20">
+
+            <Image
+                Source="{Binding UrlImage}"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"
+                HeightRequest="50" WidthRequest="50"/>
+
+            <Label Text="Email" FontSize="Large"/>
+            <Label Text="{Binding Email}"  />
+            <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black" Margin="0,0,0,20"/>
+
+            <Label Text="Firstname" FontSize="Large"/>
+            <Label Text="{Binding Firstname}"  />
+            <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black" Margin="0,0,0,20"/>
+
+            <Label Text="Lastname" FontSize="Large"/>
+            <Label Text="{Binding Lastname}"  />
+            <BoxView HorizontalOptions="FillAndExpand" HeightRequest="1" Color="Black" Margin="0,0,0,20"/>
+
+            <BoxView VerticalOptions="FillAndExpand"/>
+
+            <Button 
+                Command="{Binding UpdateProfileCommand}"
+                Text="Edit informations" />
+            
+            <Button 
+                Command="{Binding UpdatePasswordCommand}"
+                Text="Edit password" />
+
+        </StackLayout>
+    </ScrollView>
+
+</forms:BaseContentPage>

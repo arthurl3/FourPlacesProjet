@@ -1,10 +1,8 @@
 ﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
 using Storm.Mvvm;
 using Storm.Mvvm.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using TD.Api.Dtos;
 using TodoList.Services;
@@ -39,8 +37,8 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _description, value);
         }
 
-        private Image _photo;
-        public Image Photo
+        private ImageSource _photo;
+        public ImageSource Photo
         {
             get => _photo;
             set => SetProperty(ref _photo, value);
@@ -60,10 +58,12 @@ namespace TodoList.ViewModels
             set => SetProperty(ref _longitude, value);
         }
 
+        private MediaFile _file;
+
         public ICommand ValidateCommand { get; }
         public ICommand GetLocationCommand { get; }
         public ICommand OpenCameraCommand { get; }
-        
+
 
         public AddPlacePageViewModel()
         {
@@ -73,40 +73,36 @@ namespace TodoList.ViewModels
             ValidateCommand = new Command(ValidateAction);
             GetLocationCommand = new Command(GetLocationAction);
             OpenCameraCommand = new Command(OpenCameraAction);
+
         }
+
 
         private async void OpenCameraAction()
         {
-            var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
+            /*            var photo = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions() { });
 
-            if (photo != null)
-                Photo.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+                        if (photo != null)
+                            Photo.Source = ImageSource.FromStream(() => { return photo.GetStream(); });
+                    */
+            await CrossMedia.Current.Initialize();
 
+            _file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
+            {
+                PhotoSize = Plugin.Media.Abstractions.PhotoSize.Small,
+                Directory = "Sample",
+                Name = "test.jpg"
+            });
 
-            //if (!CrossMedia.Current.IsCameraAvailable || !CrossMedia.Current.IsTakePhotoSupported)
-            //{
-            //    await Application.Current.MainPage.DisplayAlert("Error", "Camera not found", "OK");
-            //    return;
-            //}
+            if (_file != null)
+                Photo = ImageSource.FromStream(() =>
+                {
+                    var stream = _file.GetStream();
 
-            //var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-            //{
-            //    PhotoSize = Plugin.Media.Abstractions.PhotoSize.Medium,
-            //    Directory = "Sample",
-            //    Name = "test.jpg"
-            //});
+                    return stream;
+                });
+            else
+                await Application.Current.MainPage.DisplayAlert("Error", "Photo not found", "OK");
 
-            //if (file == null)
-            //    return;
-
-            //await Application.Current.MainPage.DisplayAlert("File Location", file.Path, "OK");
-
-            //Photo.Source = ImageSource.FromStream(() =>
-            //{
-            //    var stream = file.GetStream();
-            //    file.Dispose();
-            //    return stream;
-            //});
         }
 
         private async void GetLocationAction()
@@ -132,10 +128,28 @@ namespace TodoList.ViewModels
 
         private async void ValidateAction()
         {
-            PlaceItem place = new PlaceItem(Title, Description, 2, Convert.ToDouble(Latitude), Convert.ToDouble(Longitude));
+            //Check informations
+            if (Title == null || Title.Equals("") || Description == null || Description.Equals(""))
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Incomplete informations", "OK");
+                return;
+            }
 
-            //await api.CreatePlace(place); //TODO décommenter
-            await _navigationService.Value.PopAsync();
+            PlaceItem place = new PlaceItem(Title, Description, 2, Convert.ToDouble(Latitude), Convert.ToDouble(Longitude));
+            if (_file != null)
+            {
+                //On envoie la photo
+                byte[] imageArray = System.IO.File.ReadAllBytes(_file.Path);
+                int idImage = await api.SendImage(imageArray);
+                if (idImage!=-1)
+                {
+                    //On cree le lieu
+                    await ApiClient.ApiInstance.CreatePlace(place);
+                    await _navigationService.Value.PopAsync();
+                }
+            }
+            else
+                await Application.Current.MainPage.DisplayAlert("Error", "Please select a picture", "OK");
         }
     }
 }

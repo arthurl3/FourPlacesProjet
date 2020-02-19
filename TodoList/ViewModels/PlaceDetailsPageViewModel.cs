@@ -1,9 +1,7 @@
 ﻿using Storm.Mvvm;
 using Storm.Mvvm.Navigation;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.Diagnostics;
 using System.Windows.Input;
 using TD.Api.Dtos;
 using TodoList.Services;
@@ -57,19 +55,19 @@ namespace TodoList.ViewModels
             PageName = PlaceItem.Title;
             Description = PlaceItem.Description;
 
-            ApiClient api = ApiClient.ApiInstance;
             UrlImage = "https://td-api.julienmialon.com/images/" + PlaceItem.ImageId;
-            ListComments = await api.GetCommentsPlace(PlaceItem.Id);
+            ListComments = await ApiClient.ApiInstance.GetCommentsPlace(PlaceItem.Id);
 
         }
 
         public async void OpenCommentAction()
         {
-            string result = await Application.Current.MainPage.DisplayPromptAsync("Post a comment", "");
-
-            //TODO api add comment
-            //TODO refresh
-
+            string comment = await Application.Current.MainPage.DisplayPromptAsync("Comment", "Post a comment");
+            if (comment != null)
+            {
+                await ApiClient.ApiInstance.CreateComment(PlaceItem.Id, new CreateCommentRequest(comment));
+                ListComments = await ApiClient.ApiInstance.GetCommentsPlace(PlaceItem.Id); //refresh
+            }
         }
 
     }

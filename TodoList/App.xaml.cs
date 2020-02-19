@@ -1,7 +1,5 @@
 ﻿using Storm.Mvvm;
-using TodoList.Services;
 using TodoList.Views;
-using Xamarin.Forms;
 
 namespace TodoList
 {

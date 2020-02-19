@@ -6,10 +6,10 @@ namespace Common.Api.Dtos
 	{
 		[JsonProperty("is_success")]
 		public bool IsSuccess { get; set; }
-		
+
 		[JsonProperty("error_code")]
 		public string ErrorCode { get; set; }
-		
+
 		[JsonProperty("error_message")]
 		public string ErrorMessage { get; set; }
 	}

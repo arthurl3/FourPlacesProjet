@@ -9,16 +9,27 @@
         Orientation="Vertical">
         <StackLayout
             Orientation="Vertical"
-            Margin="12,20">
+            VerticalOptions="Center"
+            Margin="40,-20,40,0">
 
             <Label
-                Text="Email" />
+                HorizontalTextAlignment="Center" 
+                Margin="0,0,0,30"
+                Text="FOUR PLACES"
+                FontSize="Title"
+                FontAttributes="Bold"/>
+            
+            <Label
+                HorizontalTextAlignment="Center" 
+                Text="Email"  />
             <Entry
                 Text="{Binding Email}" />
 
             <Label
-                Text="Passsword" />
+                HorizontalTextAlignment="Center"
+                Text="Password" />
             <Entry
+                IsPassword="true"
                 Text="{Binding Password}" />
 
             <Button

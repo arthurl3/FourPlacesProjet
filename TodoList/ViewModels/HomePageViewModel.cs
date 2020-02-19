@@ -2,8 +2,6 @@
 using Storm.Mvvm.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using TD.Api.Dtos;
@@ -47,6 +45,7 @@ namespace TodoList.ViewModels
 
         public ICommand SeeDetailsCommand { get; }
         public ICommand GotoCreatePlaceCommand { get; }
+        public ICommand GotoProfileCommand { get; }
 
         public HomePageViewModel()
         {
@@ -54,17 +53,23 @@ namespace TodoList.ViewModels
 
             SeeDetailsCommand = new Command<PlaceItem>(SeeDetailsAction);
             GotoCreatePlaceCommand = new Command(GotoCreatePlaceAction);
+            GotoProfileCommand = new Command(GotoProfileAction);
         }
 
 
         public override async void Initialize(Dictionary<string, object> navigationParameters)
         {
             base.Initialize(navigationParameters);
-            ApiClient api = ApiClient.ApiInstance;
 
             PageName = "Home";
-            await api.GetUserSession();
-            ListPlaces = await api.GetPlaces();
+            ListPlaces = await ApiClient.ApiInstance.GetPlaces();
+        }
+
+        public override async Task OnResume()
+        {
+            //après avoir ajouté un lieu, on refresh la liste
+            await base.OnResume();
+            ListPlaces = await ApiClient.ApiInstance.GetPlaces();
         }
 
         public async void SeeDetailsAction(PlaceItem placeItem)
@@ -78,6 +83,11 @@ namespace TodoList.ViewModels
         public async void GotoCreatePlaceAction()
         {
             await _navigationService.Value.PushAsync<AddPlacePage>();
+        }
+
+        public async void GotoProfileAction()
+        {
+            await _navigationService.Value.PushAsync<ProfilePage>();
         }
     }
 }

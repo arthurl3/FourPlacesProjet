@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Storm.Mvvm;
+﻿using Storm.Mvvm;
 using Storm.Mvvm.Services;
-using TD.Api.Dtos;
+using System;
+using System.Windows.Input;
 using TodoList.Services;
 using TodoList.Views;
 using Xamarin.Forms;
@@ -54,15 +49,19 @@ namespace TodoList.ViewModels
 
         public async void ConnectionAction()
         {
+#pragma warning disable CS0219 // La variable 'isAuthentificate' est assignée, mais sa valeur n'est jamais utilisée
             bool isAuthentificate = false;
-            if (Email != null && Password != null ) 
+#pragma warning restore CS0219 // La variable 'isAuthentificate' est assignée, mais sa valeur n'est jamais utilisée
+            if (Email != null && Password != null)
             {
-                ApiClient api = ApiClient.ApiInstance;
-                isAuthentificate = await api.Authentification(Email, Password);
+                isAuthentificate = await ApiClient.ApiInstance.Authentification(Email, Password);
             }
 
             if (isAuthentificate)
+            {
+                await ApiClient.ApiInstance.GetUserSession();
                 await _navigationService.Value.PushAsync<HomePage>();
+            } 
             else
                 await Application.Current.MainPage.DisplayAlert("Wrong Email or Password", "Please retry", "OK");            
         }

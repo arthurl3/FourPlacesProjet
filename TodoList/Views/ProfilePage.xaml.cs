@@ -5,11 +5,11 @@ using Xamarin.Forms.Xaml;
 namespace TodoList.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class PlaceDetailsPage : BaseContentPage
+    public partial class ProfilePage : BaseContentPage
     {
-        public PlaceDetailsPage()
+        public ProfilePage()
         {
-            BindingContext = new PlaceDetailsPageViewModel();
+            BindingContext = new ProfilePageViewModel();
             InitializeComponent();
         }
     }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using Storm.Mvvm.Forms;
-using TD.Api.Dtos;
-using TodoList.Services;
+﻿using Storm.Mvvm.Forms;
 using TodoList.ViewModels;
 
 namespace TodoList.Views

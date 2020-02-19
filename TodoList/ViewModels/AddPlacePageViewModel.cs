@@ -14,7 +14,7 @@ namespace TodoList.ViewModels
     public class AddPlacePageViewModel : ViewModelBase
     {
         private readonly Lazy<INavigationService> _navigationService;
-        private ApiClient api;
+        private readonly ApiClient api;
 
         private string _pageName;
         public string PageName

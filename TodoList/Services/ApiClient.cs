@@ -38,7 +38,7 @@ namespace TodoList.Services
 
         private string _accessToken;
 
-        private HttpClient _httpClient;
+        private readonly HttpClient _httpClient;
 
         private static readonly Lazy<ApiClient> apiClient = new Lazy<ApiClient>(() => new ApiClient());
 
@@ -201,7 +201,7 @@ namespace TodoList.Services
 
             HttpResponseMessage response = await client.SendAsync(request);
 
-            string result = await response.Content.ReadAsStringAsync();
+            await response.Content.ReadAsStringAsync();
 
             if (response.IsSuccessStatusCode)
             {

@@ -11,7 +11,6 @@ namespace TodoList.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         private readonly Lazy<INavigationService> _navigationService;
-        private readonly Lazy<IDialogService> _dialogService;
 
         private string _pageName;
         public string PageName
@@ -39,7 +38,6 @@ namespace TodoList.ViewModels
         public MainPageViewModel()
         {
             _navigationService = new Lazy<INavigationService>(() => DependencyService.Resolve<INavigationService>());
-            _dialogService = new Lazy<IDialogService>(() => DependencyService.Resolve<IDialogService>());
 
             ConnectionCommand = new Command(ConnectionAction);
             GotoRegisterCommand = new Command(GotoRegisterAction);
